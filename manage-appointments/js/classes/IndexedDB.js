@@ -63,7 +63,7 @@ class IndexedDB {
         }
     
         transaction.onerror = () => {            
-            ui.printAlert('No se pudo agregar la cita');
+            ui.printAlert('No se pudo agregar la cita.');
         }
     }
 
@@ -84,6 +84,39 @@ class IndexedDB {
             if (cursor) {                
                 ui.printQuotes(cursor);
             }
+        }
+    }
+
+    editQuotes(objectQuote) {
+        const transaction = DB.transaction(['quotes'], 'readwrite');
+        const objectStore = transaction.objectStore('quotes');
+
+        // Edit
+        objectStore.put(objectQuote);
+
+        transaction.oncomplete = () => {
+            ui.printAlert('Editado correctamente.');
+        }
+
+        transaction.onerror = () => {
+            ui.printAlert('No se pudo editar correctamente.');            
+        }
+    }
+
+    deleteQuote(id) {
+        const transaction = DB.transaction(['quotes'], 'readwrite');
+        const objectStore = transaction.objectStore('quotes');
+
+        // Delete
+        objectStore.delete(id);
+
+        transaction.oncomplete = () => {
+            ui.printAlert('Cita eliminada correctamente.');
+            this.readQuotes();
+        }
+
+        transaction.onerror = () => {            
+            console.log('No se pudo eliminar la cita.');
         }
     }
     

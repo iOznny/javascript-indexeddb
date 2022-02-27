@@ -78,7 +78,9 @@ class UI {
         const btnEdit = document.createElement('button');
         btnEdit.classList.add('btn', 'btn-info', 'mr-2');
         btnEdit.innerHTML = 'Editar <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" /></svg>';
-        btnEdit.onclick = () => loadingEdit(q);
+        
+        const quote = cursor.value;
+        btnEdit.onclick = () => loadingEdit(quote);
 
         // Add p at divQuote
         divQuote.appendChild(petP);

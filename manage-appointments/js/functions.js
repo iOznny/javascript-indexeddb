@@ -47,11 +47,14 @@ export function newQuote(e) {
         return;
     }
 
-    if (editing) {
-        ui.printAlert('Editado correctamente');
-
+    if (editing) {        
         // Change the object quote to editing
         quote.editQuote({...quoteObj});
+
+        // Edit in IndexedDB
+        indexedDB.editQuotes({...quoteObj});
+
+        ui.printAlert('Editado correctamente');
 
         // Change text content to button
         form.querySelector('button[type=submit]').textContent = 'Crear Cita';
@@ -90,13 +93,7 @@ export function resetObject() {
 // Delete Quote
 export function deleteQuote(id) {
     // Delete quote
-    quote.deleteQuote(id);
-
-    // Show message
-    ui.printAlert('La cita ha sido eliminada correctamente', 'success');
-
-    // Refresh quotes
-    indexedDB.readQuotes();
+    indexedDB.deleteQuote(id);
 }
 
 // Loading Edit
