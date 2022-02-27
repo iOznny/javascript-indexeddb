@@ -1,5 +1,6 @@
 import Quote from './classes/Quote.js';
 import UI from './classes/UI.js';
+import IndexedDB from './classes/IndexedDB.js';
 import { 
     petInput, 
     ownerInput, 
@@ -8,11 +9,12 @@ import {
     hourInput, 
     symptomInput, 
     form 
-} from './selectors';
+} from './selectors.js';
 
 // Initialization Class
 const quote = new Quote();
 const ui = new UI();
+const indexedDB = new IndexedDB();
 
 // Mode Edit
 let editing = false;
@@ -63,12 +65,12 @@ export function newQuote(e) {
         // Create new quote
         quote.addQuote({...quoteObj});
 
-        // Show message
-        ui.printAlert('Se agrego correctamente');
+        // Insert quote in Indexed DB
+        indexedDB.createQuote({...quoteObj});
     }
     
     // Show html with the quotes    
-    ui.printQuotes(quote);
+    indexedDB.readQuotes();
 
     // Reset Object & Form
     resetObject();    
@@ -94,7 +96,7 @@ export function deleteQuote(id) {
     ui.printAlert('La cita ha sido eliminada correctamente', 'success');
 
     // Refresh quotes
-    ui.printQuotes(quote);
+    indexedDB.readQuotes();
 }
 
 // Loading Edit
