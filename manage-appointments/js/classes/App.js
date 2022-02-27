@@ -6,12 +6,19 @@ import {
     dateInput, 
     hourInput, 
     symptomInput, 
-    form 
+    form
 } from '../selectors.js';
+import IndexedDB from './IndexedDB.js';
 
 class App {
-    constructor() {
+    constructor() {      
         this.initApp();
+
+        window.onload = () => {
+            // Initialization class Indexed DB
+            const indexeddb = new IndexedDB();
+            indexeddb.createDB();
+        }
     }
 
     initApp() {
